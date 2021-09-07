@@ -34,12 +34,8 @@ public class UserRepositoryImpl implements UserRepository {
     public void save(example.model.User user){
       String name = user.getUsername();
       String password = user.getPassword();
-//      Set<Role> roles = user.getRoles();
-String[] roles = {"ROLE_USER"};
-      ArrayList<GrantedAuthority> grantedAuthoritiesList= new ArrayList<>();
-      for (String role : roles) {
-        grantedAuthoritiesList.add(new SimpleGrantedAuthority(role));
-      }
+      ArrayList<GrantedAuthority> grantedAuthoritiesList= new ArrayList<GrantedAuthority>();
+      grantedAuthoritiesList.add(new SimpleGrantedAuthority("ROLE_USER"));
 
       inMemoryUserDetailsManager
       .createUser(new org.springframework.security.core.userdetails.User(name, passwordEncoder.encode(password), grantedAuthoritiesList));
